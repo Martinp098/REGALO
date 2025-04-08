@@ -72,6 +72,7 @@
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
       transition: transform 1s ease;
       z-index: 2;
+      opacity: 0;
     }
 
     .tulip {
@@ -93,6 +94,7 @@
 
     .show-letter {
       transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
     }
 
     @keyframes floatUp {
@@ -104,11 +106,11 @@
 </head>
 <body>
   <div class="container">
-    <button onclick="showEnvelope()">Abrir tu regalo</button>
+    <button onclick="showEnvelope()">Open Your Gift</button>
     <div class="envelope" id="envelope">
       <div class="flap"></div>
       <div class="letter" id="letter">
-        Estoy muy sorry que no hayas pasado el examen. Quisiera estar allí para apoyarte. Eres muy inteligente y talentoso. Sé que lo harás mejor la próxima vez.
+        I'm sorry you failed your test. I wish I could be there to support you. You're very intelligent and talented. I know you’ll do better next time.
       </div>
     </div>
   </div>
@@ -119,19 +121,22 @@
     function showEnvelope() {
       const envelope = document.getElementById("envelope");
       const letter = document.getElementById("letter");
+
+      // Abrir el sobre
       envelope.classList.add("show");
       setTimeout(() => {
         envelope.classList.add("open");
       }, 1000);
+
+      // Mostrar la carta
       setTimeout(() => {
         letter.classList.add("show-letter");
       }, 2000);
+
+      // Empezar a generar los tulipanes después de la carta
       setTimeout(() => {
-        envelope.classList.remove("show");
-        envelope.classList.remove("open");
-        letter.classList.remove("show-letter");
         generateTulips();
-      }, 5000); // El mensaje se mantendrá por más tiempo
+      }, 5000); // Los tulipanes comenzarán a caer después de que la carta esté visible
     }
 
     function generateTulips() {
@@ -147,6 +152,7 @@
         document.body.appendChild(tulip);
         tulipsCreated++;
 
+        // Limitar la cantidad de tulipanes en la pantalla
         if (tulipsCreated > 1000) {
           document.querySelectorAll('.tulip').forEach((el) => el.remove());  // Eliminar tulipanes viejos si hay demasiados
           tulipsCreated = 0;
@@ -156,6 +162,7 @@
   </script>
 </body>
 </html>
+
 
 
 
