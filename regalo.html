@@ -104,7 +104,7 @@
 </head>
 <body>
   <div class="container">
-    <button onclick="showEnvelope()">Open Your Gift</button>
+    <button onclick="showEnvelope()">Abrir tu regalo</button>
     <div class="envelope" id="envelope">
       <div class="flap"></div>
       <div class="letter" id="letter">
@@ -114,6 +114,8 @@
   </div>
 
   <script>
+    let tulipsCreated = 0;
+
     function showEnvelope() {
       const envelope = document.getElementById("envelope");
       const letter = document.getElementById("letter");
@@ -143,11 +145,18 @@
         tulip.style.left = `${Math.random() * 100}%`;
         tulip.style.animationDelay = `${Math.random() * 3}s`;
         document.body.appendChild(tulip);
+        tulipsCreated++;
+
+        if (tulipsCreated > 1000) {
+          document.querySelectorAll('.tulip').forEach((el) => el.remove());  // Eliminar tulipanes viejos si hay demasiados
+          tulipsCreated = 0;
+        }
       }, 300); // Crea un tulipán cada 300ms (puedes ajustar este valor)
     }
   </script>
 </body>
 </html>
+
 
 
 
