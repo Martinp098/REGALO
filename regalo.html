@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Virtual Gift</title>
+  <style>
+    body {
+      margin: 0;
+      background: linear-gradient(to bottom right, #fdeff9, #ec38bc);
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .container {
+      text-align: center;
+    }
+
+    .btn {
+      padding: 1rem 2rem;
+      font-size: 1.2rem;
+      background: #ff69b4;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      transition: transform 0.3s ease;
+    }
+
+    .btn:hover {
+      transform: scale(1.1);
+    }
+
+    .envelope-wrapper {
+      display: none;
+      margin-top: 30px;
+      position: relative;
+      width: 300px;
+      height: 200px;
+      perspective: 1000px;
+      animation: fadeIn 1s forwards;
+    }
+
+    .envelope {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      transform-style: preserve-3d;
+      transition: transform 2s;
+    }
+
+    .envelope.open {
+      transform: rotateX(180deg);
+    }
+
+    .front, .back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 10px;
+    }
+
+    .front {
+      background: #fff;
+      border: 2px solid #ff69b4;
+      z-index: 2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+    .back {
+      background: #fff0f5;
+      transform: rotateX(180deg);
+      padding: 20px;
+      font-size: 1rem;
+      color: #444;
+      text-align: center;
+      border: 2px solid #ff69b4;
+      line-height: 1.6;
+    }
+
+    .tulips {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 10;
+    }
+
+    .tulip {
+      position: absolute;
+      background-size: cover;
+      background-repeat: no-repeat;
+      animation: fall 6s linear infinite;
+      z-index: 10;
+      width: 40px;
+      height: 40px;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-100px) rotate(0deg);
+        opacity: 0;
+      }
+      20% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <button class="btn" onclick="startGift()">Open Your Gift</button>
+    <div class="envelope-wrapper" id="envelopeWrapper">
+      <div class="envelope" id="envelope">
+        <div class="front">💌</div>
+        <div class="back">
+          I'm sorry you failed your test. I wish I could be there to support you. You're very smart and talented. I know you can do better next time. 💖
+        </div>
+      </div>
+    </div>
+    <div class="tulips" id="tulips"></div>
+  </div>
+
+  <script>
+    function startGift() {
+      const envelopeWrapper = document.getElementById('envelopeWrapper');
+      const envelope = document.getElementById('envelope');
+      const tulips = document.getElementById('tulips');
+
+      envelopeWrapper.style.display = 'block';
+
+      setTimeout(() => {
+        envelope.classList.add('open');
+      }, 500);
+
+      setTimeout(() => {
+        envelope.classList.remove('open');
+      }, 6000);
+
+      setTimeout(() => {
+        tulips.style.display = 'block';
+        for (let i = 0; i < 50; i++) {
+          const tulip = document.createElement('div');
+          tulip.classList.add('tulip');
+          tulip.style.left = Math.random() * 100 + 'vw';
+          tulip.style.top = -Math.random() * 100 + 'px';
+          tulip.style.backgroundImage = `url('https://i.imgur.com/vZLApAo.png')`;
+          tulip.style.width = '40px';
+          tulip.style.height = '40px';
+          tulip.style.backgroundSize = 'cover';
+          tulip.style.filter = `hue-rotate(${Math.random() * 360}deg)`;
+          tulip.style.animationDelay = `${Math.random() * 5}s`;
+          tulips.appendChild(tulip);
+        }
+      }, 7000);
+    }
+  </script>
+</body>
+</html>
