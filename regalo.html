@@ -79,7 +79,7 @@
       bottom: -100px;
       width: 40px;
       height: 40px;
-      animation: floatUp 5s linear forwards;
+      animation: floatUp 5s linear infinite;
       z-index: 1;
     }
 
@@ -129,23 +129,25 @@
         envelope.classList.remove("open");
         letter.classList.remove("show-letter");
         generateTulips();
-      }, 7000);
+      }, 5000); // El mensaje se mantendrá por más tiempo
     }
 
     function generateTulips() {
       const tulipImage = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEifIkvXFO8rURJdbIb15DC6siHA2tFbqIsKbSarP3ePqnmuGCyXHzNGTJeX9rdSlc-3pjOr9JJ9BZq1jdNuXS0mDdHpSAXS04sOrflpeTuqSKGAeZHq198Zh6JvIRIUJb_VGTSDtw86LFs/s1600/Tulip-Free-Download-PNG.png";
       
-      for (let i = 0; i < 30; i++) {
+      // Crear tulipanes de forma infinita
+      setInterval(() => {
         const tulip = document.createElement("img");
         tulip.classList.add("tulip");
         tulip.src = tulipImage;
         tulip.style.left = `${Math.random() * 100}%`;
         tulip.style.animationDelay = `${Math.random() * 3}s`;
         document.body.appendChild(tulip);
-      }
+      }, 300); // Crea un tulipán cada 300ms (puedes ajustar este valor)
     }
   </script>
 </body>
 </html>
+
 
 
